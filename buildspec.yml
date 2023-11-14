@@ -11,7 +11,6 @@ phases:
       - source ~/.bashrc
       - echo 'Check kubectl version'
       - kubectl version --short --client
-      - apk add --no-cache aws-cli  # Use apk to install AWS CLI in Alpine Linux
     
   pre_build:
     commands:
