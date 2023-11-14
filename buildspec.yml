@@ -35,3 +35,4 @@ post_build:
     - echo Push the latest image to cluster
     - kubectl apply --kubeconfig $HOME/.kube/config -f deployment.yml
     - cat $HOME/.kube/config  # Print the content of kubeconfig for debugging
+    - kubectl apply -f deployment.yml
