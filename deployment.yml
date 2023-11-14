@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nodesy-deployment
+  name: doings-deployment
   labels:
-    app: nodesy-app
+    app: doings-app
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: nodesy-app
+      app: doings-app
   template:
     metadata:
       labels:
-        app: nodesy-app
+        app: doings-app
     spec:
       containers:
-      - name: nodesy-container  
-        image: ooghenekaro/nodejswebapp:latest
+      - name: doings-container  
+        image: 456618395112.dkr.ecr.us-east-1.amazonaws.com/doingsecr:latest
         ports:
         - containerPort: 3000
 
@@ -25,15 +25,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nodesy-service
+  name: doings-service
 spec:
   selector:
-    app: nodesy-app
+    app: doings-app
   ports:
     - protocol: TCP
       port: 80
       targetPort: 3000
   type: LoadBalancer
-
-
-
