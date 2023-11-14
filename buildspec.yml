@@ -29,10 +29,8 @@ phases:
       
 post_build:
   commands:
-    - echo Build completed on `date`
-    - echo Pushing the Docker image...
+    - echo "Build completed on $(date)"
+    - echo "Pushing the Docker image..."
     - docker push $IMAGE_REPO_NAME:$IMAGE_TAG
-    - echo Push the latest image to cluster
-    - kubectl apply --kubeconfig $HOME/.kube/config -f deployment.yml
-    - cat $HOME/.kube/config  # Print the content of kubeconfig for debugging
+    - echo "Push the latest image to cluster"
     - kubectl apply -f deployment.yml
