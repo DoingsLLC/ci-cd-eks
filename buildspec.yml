@@ -11,6 +11,7 @@ phases:
       - source ~/.bashrc
       - echo 'Check kubectl version'
       - kubectl version --short --client
+      - apt-get install -y awscli
     
   pre_build:
     commands:
@@ -19,10 +20,13 @@ phases:
       - IMAGE_REPO_NAME=456618395112.dkr.ecr.us-east-1.amazonaws.com/doingsecr
       - IMAGE_TAG=latest
       - aws eks --region us-east-1 update-kubeconfig --name doings-eks
+      - export DOCKERHUB_CREDENTIALS=$(aws secretsmanager get-secret-value --secret-id your-secret-id --query SecretString --output text)
+      - echo "$DOCKERHUB_CREDENTIALS" | docker login --username AWS --password-stdin 456618395112.dkr.ecr.us-east-1.amazonaws.com
   build:
     commands:
       - echo Build started on `date`
-      - echo Building the Docker image...          
+      - echo Building the Docker image...
+      - docker login -u <DOCKERHUB_USERNAME> -p <DOCKERHUB_PASSWORD>          
       - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
  
 
